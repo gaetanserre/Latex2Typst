@@ -9,6 +9,8 @@ let token_impl lexbuf =
 
   | "\\end" -> END
 
+  | '\\' -> TEXT ""
+
   | '\\', Plus (Compl ('{' | '}' | '[' | ']' | '(' | ')' | '\\' | ' ' | '_' | '^'
     | ',' | ';' | '.' | '$' | '|' | '\n')) ->
     let cmd = Sedlexing.Utf8.sub_lexeme lexbuf 1 (Sedlexing.lexeme_length lexbuf - 1) in
