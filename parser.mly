@@ -27,27 +27,35 @@ arg:
 
 env:
   | BEGIN LBRACE name=TEXT RBRACE args=list(arg)
-    el=nonempty_list(expr)
+    el = nonempty_list(expr)
     END LBRACE TEXT RBRACE { Ast.Env (name, args, el) }
 
-expr_no_bracket:
-  | t = TEXT { Ast.Text t }
-  | DOLLARS { Ast.Text "$" }
-  | NEWLINE { Ast.Text "\n" }
-  | UNDERSCORE arg = option(delimited(LBRACE, list(expr), RBRACE))
+expr_base:
+| t = TEXT { Ast.Text t }
+| DOLLARS { Ast.Text "$" }
+| NEWLINE { Ast.Text "\n" }
+| UNDERSCORE arg = option(delimited(LBRACE, list(expr), RBRACE))
     { Ast.Subscript (Option.value arg ~default:[]) }
-  | CARET arg = option(delimited(LBRACE, list(expr), RBRACE))
+| CARET arg = option(delimited(LBRACE, list(expr), RBRACE))
     { Ast.Superscript (Option.value arg ~default:[]) }
-  | BACKTICK el=nonempty_list(expr_no_quote) APOSTROPHE { Ast.Quote el }
-  | BACKTICK BACKTICK el=nonempty_list(expr_no_quote) APOSTROPHE APOSTROPHE { Ast.DoubleQuote el }
-  | name = FUNC args = list(arg) { Ast.Func (name, args) }
-  | env=env { env }
+| BACKTICK BACKTICK el = nonempty_list(expr_no_quote) APOSTROPHE APOSTROPHE
+    { Ast.DoubleQuote el }
+| BACKTICK el = nonempty_list(expr_no_quote) APOSTROPHE
+    { Ast.Quote el }
+| name = FUNC args = list(arg) { Ast.Func (name, args) }
+| env = env { env }
 
 expr_no_quote:
-  | e=expr_no_bracket { e }
-  | LBRACKET { Ast.Text "[" }
-  | RBRACKET { Ast.Text "]" }
+| e = expr_base { e }
+| LBRACKET { Ast.Text "[" }
+| RBRACKET { Ast.Text "]" }
+
+expr_no_bracket:
+| e = expr_base { e }
+| APOSTROPHE { Ast.Text "'" }
 
 expr:
-  | e=expr_no_quote { e }
-  | APOSTROPHE { Ast.Text "'" }
+| e = expr_base { e }
+| APOSTROPHE { Ast.Text "'" }
+| LBRACKET { Ast.Text "[" }
+| RBRACKET { Ast.Text "]" }
