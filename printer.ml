@@ -76,10 +76,10 @@ let emit_expr debug e =
       if debug then
         Printf.printf "Emitting textit with content \"%s\"\n" args_str;
       "_" ^ args_str ^ "_"
-    | Func ("text", args) ->
+    | Func (("text" | "textnormal"), args) ->
       let args_str = String.concat "" (map_concat aux args) in
       if debug then
-        Printf.printf "Emitting textit with content \"%s\"\n" args_str;
+        Printf.printf "Emitting text with content \"%s\"\n" args_str;
       "\"" ^ args_str ^ "\""
     | Func (name, args) ->
       let (name, n_args) = match Typst_dict.lookup name with
