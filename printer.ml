@@ -21,6 +21,16 @@ let emit_expr debug e =
     | Superscript superscripts ->
       let supers_str = String.concat "" (List.map aux superscripts) in
       if supers_str = "" then "^" else "^(" ^ supers_str ^ ")"
+    | Quote content ->
+      let content_str = String.concat "" (List.map aux content) in
+      if debug then
+        Printf.printf "Emitting quote with content \"%s\"\n" content_str;
+      "'" ^ content_str ^ "'"
+    | DoubleQuote content ->
+      let content_str = String.concat "" (List.map aux content) in
+      if debug then
+        Printf.printf "Emitting double quote with content \"%s\"\n" content_str;
+      "\"" ^ content_str ^ "\""
     | Func (("cite" | "citet" | "citep" | "ref" | "cref" | "Cref" | "eqref"), refs::extra) ->
       let refs_str = "@" ^ String.concat "" (List.map aux refs) 
         |> String.fold_left

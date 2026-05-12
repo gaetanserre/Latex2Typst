@@ -11,8 +11,11 @@ let token_impl lexbuf =
 
   | '\\' -> TEXT ""
 
+  | '`' -> BACKTICK
+  | '\'' -> APOSTROPHE
+
   | '\\', Plus (Compl ('{' | '}' | '[' | ']' | '(' | ')' | '\\' | ' ' | '_' | '^'
-    | ',' | ';' | '.' | '$' | '|' | '\n')) ->
+    | ',' | ';' | '.' | '$' | '|' | '\n' | '`' | '\'')) ->
     let cmd = Sedlexing.Utf8.sub_lexeme lexbuf 1 (Sedlexing.lexeme_length lexbuf - 1) in
     FUNC cmd
 
@@ -34,7 +37,7 @@ let token_impl lexbuf =
 
   | "\\\\" -> TEXT "\\"
 
-  | Plus (Compl ('{' | '}' | '[' | ']' | '\\' | '$' | '\n' | '_' | '^')) ->
+  | Plus (Compl ('{' | '}' | '[' | ']' | '\\' | '$' | '\n' | '_' | '^' | '`' | '\'')) ->
     TEXT (Sedlexing.Utf8.lexeme lexbuf)
 
   | eof -> EOF
@@ -56,6 +59,8 @@ let print_token tok =
   | NEWLINE -> "NEWLINE"
   | UNDERSCORE -> "UNDERSCORE"
   | CARET -> "CARET"
+  | BACKTICK -> "BACKTICK"
+  | APOSTROPHE -> "APOSTROPHE"
   | BEGIN -> "BEGIN"
   | END -> "END"
   | EOF -> "EOF"
