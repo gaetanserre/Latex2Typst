@@ -6,3 +6,5 @@ type expr =
   | Env of string * expr list list * expr list
   | Subscript of expr list
   | Superscript of expr list
+  | Quote of expr list
+  | DoubleQuote of expr list
