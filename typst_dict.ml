@@ -53,6 +53,17 @@ let () =
     "left", typst_equiv "";
     "right", typst_equiv "";
     "Big", typst_equiv "";
+    "big", typst_equiv "";
+    "bigg", typst_equiv "";
+    "Bigg", typst_equiv "";
+    "Bigl", typst_equiv "";
+    "bigl", typst_equiv "";
+    "biggl", typst_equiv "";
+    "Biggl", typst_equiv "";
+    "Bigr", typst_equiv "";
+    "bigr", typst_equiv "";
+    "biggr", typst_equiv "";
+    "Biggr", typst_equiv "";
   ]
 
 let custom : (string, string * int option) Hashtbl.t = Hashtbl.create 16

@@ -2,8 +2,6 @@
 
 open Ast
 
-
-
 let map_concat (f : 'a -> string) (ll : 'a list list) =
   List.map (fun l -> String.concat "" l) (List.map (fun l -> List.map f l) ll)
 
@@ -23,12 +21,17 @@ let emit_expr debug e =
     | Superscript superscripts ->
       let supers_str = String.concat "" (List.map aux superscripts) in
       if supers_str = "" then "^" else "^(" ^ supers_str ^ ")"
-    | Func (("cite" | "citet" | "citep" | "ref" | "cref" | "Cref" | "eqref"), [ref]::extra) ->
-      let ref_str = aux ref in
+    | Func (("cite" | "citet" | "citep" | "ref" | "cref" | "Cref" | "eqref"), refs::extra) ->
+      let refs_str = "@" ^ String.concat "" (List.map aux refs) 
+        |> String.fold_left
+          (fun acc s -> if s <> ' ' then acc ^ (String.make 1 s) else acc) ""
+        |> String.split_on_char ','
+        |> String.concat " @"
+      in
       let extra_str = concat_extra_args aux extra in
       if debug then
-        Printf.printf "Emitting citation \"%s\"\n" ref_str;
-      "@" ^ ref_str ^ String.concat "" extra_str
+        Printf.printf "Emitting citation \"%s\"\n" refs_str;
+      refs_str ^ String.concat "" extra_str
     | Func ("frac", args) ->
       let str_args = map_concat aux args in
       let (num_str, den_str) = match str_args with
