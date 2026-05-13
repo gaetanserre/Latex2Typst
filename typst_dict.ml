@@ -8,12 +8,17 @@ let () =
   [
     "int", typst_equiv "integral";
     "to", typst_equiv "->";
+    "rightarrow", typst_equiv "->";
     "gets", typst_equiv "<-";
+    "leftarrow", typst_equiv "<-";
     "infty", typst_equiv "oo";
     "mapsto", typst_equiv "|->";
     "leq", typst_equiv "<=";
+    "le", typst_equiv "<";
     "geq", typst_equiv ">=";
+    "ge", typst_equiv ">";
     "neq", typst_equiv "!=";
+    "coloneq", typst_equiv ":=";
     "iff", typst_equiv "<==>";
     "implies", typst_equiv "=>";
     "impliedby", typst_equiv "<=";
@@ -24,6 +29,7 @@ let () =
     "mathbb", typst_equiv "bb" ~n_args:1;
     "mathfrak", typst_equiv "frak" ~n_args:1;
     "mathbf", typst_equiv "bold" ~n_args:1;
+    "mathsf", typst_equiv "sans" ~n_args:1;
     "cdot", typst_equiv "dot";
     "ldots", typst_equiv "...";
     "cdots", typst_equiv "dots.h.c";
@@ -64,6 +70,9 @@ let () =
     "bigr", typst_equiv "";
     "biggr", typst_equiv "";
     "Biggr", typst_equiv "";
+    "#", typst_equiv "hash";
+    "otimes", typst_equiv "times.o";
+    "vec", typst_equiv "arrow" ~n_args:1;
   ]
 
 let custom : (string, string * int option) Hashtbl.t = Hashtbl.create 16

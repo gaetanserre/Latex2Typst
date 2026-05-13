@@ -71,7 +71,7 @@ let emit_expr debug e =
       if debug then
         Printf.printf "Emitting textbf with content \"%s\"\n" args_str;
       "*" ^ args_str ^ "*"
-    | Func ("textit", args) ->
+    | Func (("textit" | "emph"), args) ->
       let args_str = String.concat "" (map_concat aux args) in
       if debug then
         Printf.printf "Emitting textit with content \"%s\"\n" args_str;
