@@ -4,7 +4,7 @@ let usage = {|
 Usage: typst2latex [OPTIONS] <file.tex>
 
 Options:
-  -c <path>   Use a custom command mapping file (default: "custom_commands")
+  -c <path>   Use a custom command mapping file (default: "custom_latex_commands.txt")
   -h          Show this help message
   -d          Enable debug output
 |}

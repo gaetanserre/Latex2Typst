@@ -8,3 +8,4 @@ type expr =
   | Superscript of expr list
   | Quote of expr list
   | DoubleQuote of expr list
+  | Par of expr list

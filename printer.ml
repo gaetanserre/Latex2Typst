@@ -15,11 +15,20 @@ let emit_expr debug e =
       if debug then
         Printf.printf "Emitting text \"%s\"\n" s;
       s
+    | Par content ->
+      let content_str = String.concat "" (List.map aux content) in
+      if debug then
+        Printf.printf "Emitting par with content \"%s\"\n" content_str;
+      " (" ^ content_str ^ ")"
     | Subscript subscripts ->
       let subs_str = String.concat "" (List.map aux subscripts) in
+      if debug then
+        Printf.printf "Emitting subscript with content \"%s\"\n" subs_str;
       if subs_str = "" then "_" else "_(" ^ subs_str ^ ")"
     | Superscript superscripts ->
       let supers_str = String.concat "" (List.map aux superscripts) in
+      if debug then
+        Printf.printf "Emitting superscript with content \"%s\"\n" supers_str;
       if supers_str = "" then "^" else "^(" ^ supers_str ^ ")"
     | Quote content ->
       let content_str = String.concat "" (List.map aux content) in
@@ -71,12 +80,12 @@ let emit_expr debug e =
       if debug then
         Printf.printf "Emitting textbf with content \"%s\"\n" args_str;
       "*" ^ args_str ^ "*"
-    | Func ("textit", args) ->
+    | Func (("textit" | "emph"), args) ->
       let args_str = String.concat "" (map_concat aux args) in
       if debug then
         Printf.printf "Emitting textit with content \"%s\"\n" args_str;
       "_" ^ args_str ^ "_"
-    | Func (("text" | "textnormal"), args) ->
+    | Func (("text" | "textnormal" | "mathrm"), args) ->
       let args_str = String.concat "" (map_concat aux args) in
       if debug then
         Printf.printf "Emitting text with content \"%s\"\n" args_str;
