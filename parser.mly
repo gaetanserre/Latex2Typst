@@ -4,8 +4,8 @@
 
 %token <string> TEXT
 %token <string> FUNC
-%token LBRACE RBRACE LBRACKET RBRACKET
-%token DOLLARS NEWLINE
+%token LBRACE RBRACE LBRACKET RBRACKET RPAR LPAR NEWLINE
+%token DOLLARS BEGIN_MATH END_MATH BEGIN_MATH_BLOCK END_MATH_BLOCK
 %token BEGIN END
 %token UNDERSCORE CARET
 %token BACKTICK APOSTROPHE
@@ -33,6 +33,10 @@ env:
 expr_base:
 | t = TEXT { Ast.Text t }
 | DOLLARS { Ast.Text "$" }
+| BEGIN_MATH_BLOCK { Ast.Text "$\n" }
+| BEGIN_MATH { Ast.Text "$" }
+| END_MATH_BLOCK { Ast.Text "\n$" }
+| END_MATH { Ast.Text "$" }
 | NEWLINE { Ast.Text "\n" }
 | UNDERSCORE arg = option(delimited(LBRACE, list(expr), RBRACE))
     { Ast.Subscript (Option.value arg ~default:[]) }
@@ -44,6 +48,7 @@ expr_base:
     { Ast.Quote el }
 | name = FUNC args = list(arg) { Ast.Func (name, args) }
 | env = env { env }
+| LPAR el=list(expr) RPAR { Ast.Par el }
 
 expr_no_quote:
 | e = expr_base { e }

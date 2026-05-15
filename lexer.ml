@@ -25,10 +25,19 @@ let token_impl lexbuf =
   | '[' -> LBRACKET
   | ']' -> RBRACKET
 
+  | '(' -> LPAR
+  | ')' -> RPAR
+
   | "\\{" -> TEXT "{"
   | "\\}" -> TEXT "}"
 
   | "$$" -> DOLLARS
+
+  | "\\[" -> BEGIN_MATH_BLOCK
+  | "\\]" -> END_MATH_BLOCK
+
+  | "\\(" -> BEGIN_MATH
+  | "\\)" -> END_MATH
 
   | "\n" -> NEWLINE
 
@@ -37,7 +46,7 @@ let token_impl lexbuf =
 
   | "\\\\" -> TEXT "\\"
 
-  | Plus (Compl ('{' | '}' | '[' | ']' | '\\' | '$' | '\n' | '_' | '^' | '`' | '\'')) ->
+  | Plus (Compl ('{' | '}' | '[' | ']' | '\\' | '$' | '\n' | '_' | '^' | '`' | '\'' | '(' | ')')) ->
     TEXT (Sedlexing.Utf8.lexeme lexbuf)
 
   | eof -> EOF
@@ -55,7 +64,13 @@ let print_token tok =
   | RBRACE -> "RBRACE"
   | LBRACKET -> "LBRACKET"
   | RBRACKET -> "RBRACKET"
+  | LPAR -> "LPAR"
+  | RPAR -> "RPAR"
   | DOLLARS -> "DOLLARS"
+  | BEGIN_MATH_BLOCK -> "BEGIN_MATH_BLOCK"
+  | END_MATH_BLOCK -> "END_MATH_BLOCK"
+  | BEGIN_MATH -> "BEGIN_MATH"
+  | END_MATH -> "END_MATH"
   | NEWLINE -> "NEWLINE"
   | UNDERSCORE -> "UNDERSCORE"
   | CARET -> "CARET"

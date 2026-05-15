@@ -7,6 +7,7 @@ let () =
   List.iter (fun (k, v) -> Hashtbl.add builtin k v)
   [
     "int", typst_equiv "integral";
+    "iint", typst_equiv "integral.double";
     "to", typst_equiv "->";
     "rightarrow", typst_equiv "->";
     "gets", typst_equiv "<-";
@@ -16,8 +17,9 @@ let () =
     "leq", typst_equiv "<=";
     "le", typst_equiv "<";
     "geq", typst_equiv ">=";
-    "ge", typst_equiv ">";
+    "ge", typst_equiv ">=";
     "neq", typst_equiv "!=";
+    "ne", typst_equiv "!=";
     "coloneq", typst_equiv ":=";
     "iff", typst_equiv "<==>";
     "implies", typst_equiv "=>";
