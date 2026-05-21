@@ -12,6 +12,8 @@ let () =
     "rightarrow", typst_equiv "->";
     "gets", typst_equiv "<-";
     "leftarrow", typst_equiv "<-";
+    "rightsquigarrow", typst_equiv "~~>";
+    "leftsquigarrow", typst_equiv "<~~";
     "infty", typst_equiv "oo";
     "mapsto", typst_equiv "|->";
     "leq", typst_equiv "<=";

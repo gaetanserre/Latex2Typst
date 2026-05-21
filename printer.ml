@@ -66,7 +66,7 @@ let emit_expr debug e =
       if debug then
         Printf.printf "Emitting label \"%s\"\n" label_str;
       "<" ^ label_str ^ ">"
-    | Func ("mathbb", [arg]::extra) ->
+    | Func (("mathbb" | "bb"), [arg]::extra) ->
       let arg_str = aux arg in
       let extra_str = concat_extra_args aux extra in
       if debug then
