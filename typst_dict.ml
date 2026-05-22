@@ -8,6 +8,7 @@ let () =
   [
     "int", typst_equiv "integral";
     "iint", typst_equiv "integral.double";
+    "prod", typst_equiv "product";
     "to", typst_equiv "->";
     "rightarrow", typst_equiv "->";
     "gets", typst_equiv "<-";
@@ -76,6 +77,7 @@ let () =
     "Biggr", typst_equiv "";
     "#", typst_equiv "hash";
     "otimes", typst_equiv "times.o";
+    "bigotimes", typst_equiv "times.o.big";
     "vec", typst_equiv "arrow" ~n_args:1;
   ]
 
