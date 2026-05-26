@@ -43,6 +43,8 @@ let () =
     "iddots", typst_equiv "dots.up";
     "cap", typst_equiv "inter";
     "cup", typst_equiv "union";
+    "bigcup", typst_equiv "union.big";
+    "bigcap", typst_equiv "inter.big";
     "notin", typst_equiv "in.not";
     "ni", typst_equiv"in.rev";
     "lVert", typst_equiv "||";
