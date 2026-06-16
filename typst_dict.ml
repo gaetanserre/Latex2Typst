@@ -8,10 +8,13 @@ let () =
   [
     "int", typst_equiv "integral";
     "iint", typst_equiv "integral.double";
+    "prod", typst_equiv "product";
     "to", typst_equiv "->";
     "rightarrow", typst_equiv "->";
     "gets", typst_equiv "<-";
     "leftarrow", typst_equiv "<-";
+    "rightsquigarrow", typst_equiv "~~>";
+    "leftsquigarrow", typst_equiv "<~~";
     "infty", typst_equiv "oo";
     "mapsto", typst_equiv "|->";
     "leq", typst_equiv "<=";
@@ -40,6 +43,8 @@ let () =
     "iddots", typst_equiv "dots.up";
     "cap", typst_equiv "inter";
     "cup", typst_equiv "union";
+    "bigcup", typst_equiv "union.big";
+    "bigcap", typst_equiv "inter.big";
     "notin", typst_equiv "in.not";
     "ni", typst_equiv"in.rev";
     "lVert", typst_equiv "||";
@@ -74,6 +79,7 @@ let () =
     "Biggr", typst_equiv "";
     "#", typst_equiv "hash";
     "otimes", typst_equiv "times.o";
+    "bigotimes", typst_equiv "times.o.big";
     "vec", typst_equiv "arrow" ~n_args:1;
   ]
 
